@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.github.hae902.gacha.CustomItem.CUSTOMITEMID;
+
 public class Gacha {
 	double[] probability = new double[] {1};
 	int id;
@@ -17,7 +19,8 @@ public class Gacha {
 	ItemStack item = new ItemStack(Material.DIRT);
 	ItemMeta itemMeta = item.getItemMeta();
 	String name;
-
+	NBT nbt = new NBT();
+	CustomItem customItem = new CustomItem();
 	public int weightingGacha(double[] probability, Player player) {
 		int result = -1;
 		double random_n = Math.random();//0.0~1.0
@@ -60,8 +63,6 @@ public class Gacha {
 		case 1:
 			gacha1(player);
 			break;
-		case 2:
-
 		default:
 			player.sendMessage("まだアイテムを つくってません。");
 			break;
@@ -82,18 +83,18 @@ public class Gacha {
 			}
 			itemMeta.setLore(lores);
 		}
+		item.setItemMeta(itemMeta);
 	}
 	/**プレイヤーにアイテムを付与します。*/
 	void giveItem (Player player, Material itemtype, int count, String name, String ...lore) {
 		item = new ItemStack(itemtype, count);
 		itemMeta = item.getItemMeta();
 		setItemNameAndLore(name, lore);
-		item.setItemMeta(itemMeta);
 		player.getInventory().addItem(item);
 	}
 
 	void gacha1(Player player) {
-		probability = new double[] {1, 1, 1};
+		probability = new double[] {1, 1, 1, 1};
 		id = weightingGacha(probability, player);
 		switch (id) {
 		case 0:
@@ -109,12 +110,13 @@ public class Gacha {
 			giveItem(player, Material.TORCH, 1, null, (String)null);
 			break;
 		case 3:
-			name = "伝説の" + ChatColor.YELLOW + "バット";
-			item = new ItemStack(Material.STICK, 1);
+			name ="天使の翼";
+			item = new ItemStack(Material.FEATHER, 1);
 			itemMeta = item.getItemMeta();
 			setItemNameAndLore(name, (String)null);
-			item.setItemMeta(itemMeta);
-
+			item = nbt.setNBTInt(item, customItem.itemId, CUSTOMITEMID.ANGELSWING.ordinal());
+			player.getInventory().addItem(item);
+			break;
 		default:
 			player.sendMessage("このメッセージは でないはずだよ");
 			break;

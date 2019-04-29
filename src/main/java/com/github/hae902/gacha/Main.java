@@ -14,6 +14,7 @@ public class Main extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(this, this);
+		getServer().getPluginManager().registerEvents(new CustomItem(), this);
 	}
 
 	/**引数のブロックが看板だったら、1行目の文字と引数のStringが一致しているか判定する*/
