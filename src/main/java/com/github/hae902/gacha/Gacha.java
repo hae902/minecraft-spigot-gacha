@@ -6,7 +6,9 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -29,9 +31,9 @@ public class Gacha {
 		for (int i = 0; i < probability.length; i++) {
 			totalProbability += probability[i];
 		}
-		player.sendMessage(ChatColor.GRAY + "確率合計：" + String.valueOf(totalProbability));
 		random_n *= totalProbability;//0.0~totalrare_probability
-		player.sendMessage(ChatColor.GRAY + "確率（補正後）：" + String.valueOf(random_n));
+
+		//player.sendMessage(ChatColor.GRAY + "確率：" + String.valueOf(random_n));
 
 		//ガチャ処理
 		//最初と最後以外はforで ぐるぐる。
@@ -79,7 +81,7 @@ public class Gacha {
 		if (lore[0] != null) {
 			List<String> lores = new ArrayList<>();
 			for(String item : lore) {
-				lores.add(ChatColor.GOLD + item);
+				lores.add(item);
 			}
 			itemMeta.setLore(lores);
 		}
@@ -99,21 +101,23 @@ public class Gacha {
 		switch (id) {
 		case 0:
 			name = "参加賞の" + ChatColor.RED + "リンゴ";
-			giveItem(player, Material.APPLE, 1, name, "旅のお供に・・・");
+			giveItem(player, Material.APPLE, 1, name, ChatColor.GOLD + "旅のお供に・・・");
 			break;
 		case 1:
 			name = "参加賞の" + ChatColor.GOLD + "クッキー";
-			giveItem(player, Material.COOKIE, 1, name, ChatColor.DARK_PURPLE + "旅のお供に・・・");
+			giveItem(player, Material.COOKIE, 1, name, "旅のお供に・・・");
 			break;
 		case 2:
 			name = "参加賞の" + ChatColor.YELLOW + "たいまつ";
 			giveItem(player, Material.TORCH, 1, null, (String)null);
 			break;
 		case 3:
-			name ="天使の翼";
-			item = new ItemStack(Material.FEATHER, 1);
+			name =CUSTOMITEMID.ANGELSWING.getName();
+			item = new ItemStack(CUSTOMITEMID.ANGELSWING.getType(), 2);
 			itemMeta = item.getItemMeta();
-			setItemNameAndLore(name, (String)null);
+			itemMeta.addEnchant(Enchantment.LURE, 1, false);
+			itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+			setItemNameAndLore(name, ChatColor.LIGHT_PURPLE + "高いところから落下すると、", ChatColor.LIGHT_PURPLE + "ダメージを軽減してくれる。", ChatColor.DARK_GRAY + "(右クリックで空高く跳ぶことも出来る！)");
 			item = nbt.setNBTInt(item, customItem.itemId, CUSTOMITEMID.ANGELSWING.ordinal());
 			player.getInventory().addItem(item);
 			break;
