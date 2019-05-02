@@ -61,11 +61,7 @@ public class AngelsWing extends CustomItem implements Listener{
 
 			if (amount - currentConsumption >= 0) {
 				//必要個数が足りる時
-				if (amount - currentConsumption == 0) {
-					inventory.setItem(key, null);
-				}else {
-					inventory.getItem(key).setAmount(amount - currentConsumption);
-				}
+				decrementItem(player, key, currentConsumption);
 				currentConsumption = 0;
 				break;
 			}else {

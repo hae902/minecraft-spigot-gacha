@@ -88,6 +88,14 @@ public class Gacha {
 		}
 		item.setItemMeta(itemMeta);
 	}
+
+	/**使わないであろうエンチャを付けます。表示は隠します*/
+	void addEnchant () {
+		itemMeta.addEnchant(Enchantment.LURE, 1, false);
+		itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		item.setItemMeta(itemMeta);
+	}
+
 	/**プレイヤーにアイテムを付与します。*/
 	void giveItem (Player player, Material itemtype, int count, String name, String ...lore) {
 		item = new ItemStack(itemtype, count);
@@ -95,9 +103,20 @@ public class Gacha {
 		setItemNameAndLore(name, lore);
 		player.getInventory().addItem(item);
 	}
+	/**プレイヤーにカスタムアイテムを与える*/
+	void giveCustomItem (Player player, CUSTOMITEMID customItem, int count, String ...lore) {
+		this.name = customItem.getName();
+		this.item = new ItemStack(customItem.getType(), count);
+		this.itemMeta = item.getItemMeta();
+		addEnchant();
+		setItemNameAndLore(this.name, lore);
+		item = nbt.setNBTInt(this.item, this.customItem.itemNBTName, customItem.ordinal());
+		player.getInventory().addItem(this.item);
+	}
+
 
 	void gacha1(Player player) {
-		probability = new double[] {1, 1, 1, 1};
+		probability = new double[] {1, 1, 1, 1, 1};
 		id = weightingGacha(probability, player);
 		switch (id) {
 		case 0:
@@ -113,14 +132,10 @@ public class Gacha {
 			giveItem(player, Material.TORCH, 1, null, (String)null);
 			break;
 		case 3:
-			name =CUSTOMITEMID.ANGELSWING.getName();
-			item = new ItemStack(CUSTOMITEMID.ANGELSWING.getType(), 2);
-			itemMeta = item.getItemMeta();
-			itemMeta.addEnchant(Enchantment.LURE, 1, false);
-			itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-			setItemNameAndLore(name, ChatColor.LIGHT_PURPLE + "高いところから落下すると、", ChatColor.LIGHT_PURPLE + "ダメージを軽減してくれる。", ChatColor.DARK_GRAY + "(右クリックで空高く跳ぶことも出来る！)");
-			item = nbt.setNBTInt(item, customItem.itemNBTName, CUSTOMITEMID.ANGELSWING.ordinal());
-			player.getInventory().addItem(item);
+			giveCustomItem(player, CUSTOMITEMID.ANGELSWING, 1, ChatColor.LIGHT_PURPLE + "高いところから落下すると、", ChatColor.LIGHT_PURPLE + "ダメージを軽減してくれる。", ChatColor.DARK_GRAY + "(右クリックで空高く跳ぶことも出来る！)");
+			break;
+		case 4:
+			giveCustomItem(player, CUSTOMITEMID.EXPLOSION, 1, (String)null);
 			break;
 		default:
 			player.sendMessage("このメッセージは でないはずだよ");

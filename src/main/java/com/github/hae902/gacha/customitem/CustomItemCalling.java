@@ -17,6 +17,7 @@ public class CustomItemCalling implements Listener{
 	public static enum CUSTOMITEMID {
 		NULL("エラー", Material.STONE),//IDが埋め込まれてない時はこっちに流れる。
 		ANGELSWING(ChatColor.WHITE + "天使の翼", Material.FEATHER),
+		EXPLOSION(ChatColor.RED + "自爆スイッチ", Material.CLOCK),
 		;
 		private final String name;
 		private final Material type;
@@ -45,6 +46,8 @@ public class CustomItemCalling implements Listener{
 		case ANGELSWING:
 			new AngelsWing().use(player);
 			break;
+		case EXPLOSION:
+			new Omniscient().use(player);
 		default:
 			break;
 		}

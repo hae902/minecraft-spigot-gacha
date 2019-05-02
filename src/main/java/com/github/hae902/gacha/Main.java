@@ -14,11 +14,18 @@ import com.github.hae902.gacha.customitem.AngelsWing;
 import com.github.hae902.gacha.customitem.CustomItemCalling;
 
 public class Main extends JavaPlugin implements Listener {
+	private static  Main plugin;
+
 	@Override
 	public void onEnable() {
+		plugin = this;
 		getServer().getPluginManager().registerEvents(this, this);
 		getServer().getPluginManager().registerEvents(new CustomItemCalling(), this);
 		getServer().getPluginManager().registerEvents(new AngelsWing(), this);
+	}
+
+	public static Main getPlugin() {
+		return plugin;
 	}
 
 	/**引数のブロックが看板だったら、1行目の文字と引数のStringが一致しているか判定する*/
