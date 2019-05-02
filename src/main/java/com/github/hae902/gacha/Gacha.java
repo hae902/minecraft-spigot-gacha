@@ -12,7 +12,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.github.hae902.gacha.CustomItem.CUSTOMITEMID;
+import com.github.hae902.gacha.customitem.CustomItemCalling;
+import com.github.hae902.gacha.customitem.CustomItemCalling.CUSTOMITEMID;
 
 public class Gacha {
 	double[] probability = new double[] {1};
@@ -22,7 +23,7 @@ public class Gacha {
 	ItemMeta itemMeta = item.getItemMeta();
 	String name;
 	NBT nbt = new NBT();
-	CustomItem customItem = new CustomItem();
+	CustomItemCalling customItem = new CustomItemCalling();
 	public int weightingGacha(double[] probability, Player player) {
 		int result = -1;
 		double random_n = Math.random();//0.0~1.0
@@ -118,7 +119,7 @@ public class Gacha {
 			itemMeta.addEnchant(Enchantment.LURE, 1, false);
 			itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 			setItemNameAndLore(name, ChatColor.LIGHT_PURPLE + "高いところから落下すると、", ChatColor.LIGHT_PURPLE + "ダメージを軽減してくれる。", ChatColor.DARK_GRAY + "(右クリックで空高く跳ぶことも出来る！)");
-			item = nbt.setNBTInt(item, customItem.itemId, CUSTOMITEMID.ANGELSWING.ordinal());
+			item = nbt.setNBTInt(item, customItem.itemNBTName, CUSTOMITEMID.ANGELSWING.ordinal());
 			player.getInventory().addItem(item);
 			break;
 		default:

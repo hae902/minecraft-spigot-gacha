@@ -15,7 +15,7 @@ public class NBT {
 		NBT = customitem.getTag();
 	}
 	/**int型のタグをセット*/
-	ItemStack setNBTInt(ItemStack item, String name, int value) {
+	public ItemStack setNBTInt(ItemStack item, String name, int value) {
 		setNBT(item);
 		if (NBT == null) return item;
 		NBT.setInt(name, value);;
@@ -23,7 +23,7 @@ public class NBT {
 		return CraftItemStack.asBukkitCopy(customitem);
 	}
 	/**int型のタグをゲット*/
-	int getNBTInt(ItemStack item, String name) {
+	public int getNBTInt(ItemStack item, String name) {
 		setNBT(item);
 		if (NBT == null) return 0;
 		return NBT.getInt(name);
