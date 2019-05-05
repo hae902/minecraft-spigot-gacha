@@ -29,7 +29,7 @@
        <dependency>
            <groupId>org.spigotmc</groupId>
            <artifactId>spigot</artifactId>
-           <version>1.13.2-R0.1-SNAPSHOT</version><!--change this value depending on the version-->
+           <version>1.14-R0.1-SNAPSHOT</version><!--change this value depending on the version-->
            <type>jar</type>
            <scope>provided</scope>
        </dependency>

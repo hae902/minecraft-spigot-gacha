@@ -30,7 +30,7 @@ public class Main extends JavaPlugin implements Listener {
 
 	/**引数のブロックが看板だったら、1行目の文字と引数のStringが一致しているか判定する*/
 	public boolean isMatchSign(Block block, String name) {
-		if(block.getType() == Material.WALL_SIGN) {
+		if(block.getType() == Material.OAK_WALL_SIGN) {
 			Sign sign = (Sign) block.getState();
 			if (sign.getLine(0).matches(name)) return true;
 		}

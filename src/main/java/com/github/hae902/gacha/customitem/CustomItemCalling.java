@@ -47,7 +47,7 @@ public class CustomItemCalling implements Listener{
 			new AngelsWing().use(player);
 			break;
 		case EXPLOSION:
-			new Omniscient().use(player);
+			new Explosion().use(player);
 		default:
 			break;
 		}

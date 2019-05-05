@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 import com.github.hae902.gacha.Main;
 
-public class Omniscient extends CustomItem {
+public class Explosion extends CustomItem {
 	Player player;
 	int interval = 10;
 	int second = 20 / interval;

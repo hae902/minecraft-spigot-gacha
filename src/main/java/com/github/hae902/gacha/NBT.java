@@ -1,12 +1,12 @@
 package com.github.hae902.gacha;
 
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
-import net.minecraft.server.v1_13_R2.NBTTagCompound;
+import net.minecraft.server.v1_14_R1.NBTTagCompound;
 /**MinecraftのVer変わるとほぼ確実に動かなくなる部分なので注意*/
 public class NBT {
-	net.minecraft.server.v1_13_R2.ItemStack customitem;
+	net.minecraft.server.v1_14_R1.ItemStack customitem;
 	NBTTagCompound NBT;
 	void setNBT(ItemStack item) {
 		//NBTに何かしら書いてないとエラー吐くので対策（条件はとりあえず名前と説明文だけ・・・）
