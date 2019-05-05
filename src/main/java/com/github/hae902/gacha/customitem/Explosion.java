@@ -25,15 +25,13 @@ public class Explosion extends CustomItem {
 			return;
 		}else if (count >= second * 2){
 			if (exp == 3) {
-				player.sendMessage(ChatColor.YELLOW + String.valueOf(exp) + "...！");
-				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP,  1f, 0.8f);
+				Bukkit.broadcastMessage(ChatColor.YELLOW + String.valueOf(exp) + "...！");
 			}else if (exp == 2) {
-				player.sendMessage(ChatColor.GOLD + String.valueOf(exp) + "...！！");
-				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP,  2f, 1f);
+				Bukkit.broadcastMessage(ChatColor.GOLD + String.valueOf(exp) + "...！！");
 			}else if (exp == 1) {
-				player.sendMessage(ChatColor.RED + String.valueOf(exp) + "...！！！");
-				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP,  3f, 1.3f);
+				Bukkit.broadcastMessage(ChatColor.RED + String.valueOf(exp) + "...！！！");
 			}
+			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP,  3f, 1.3f);
 
 
 
@@ -45,7 +43,7 @@ public class Explosion extends CustomItem {
 	public void use(Player player) {
 		this.player = player;
 		runTaskTimer(Main.getPlugin(), 0, interval);
-		Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + player.getDisplayName() + "さん が 自爆スイッチを押した！");
+		Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + player.getDisplayName() + "が 自爆スイッチを押した！");
 		player.getWorld().playSound(player.getLocation(), Sound.BLOCK_DISPENSER_DISPENSE, 1, 1.3f);
 
 	}
