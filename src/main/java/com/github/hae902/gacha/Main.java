@@ -1,5 +1,6 @@
 package com.github.hae902.gacha;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -7,14 +8,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.hae902.gacha.customitem.AngelsWing;
 import com.github.hae902.gacha.customitem.CustomItemCalling;
+import com.github.hae902.gacha.customitem.GodsEye;
 
 public class Main extends JavaPlugin implements Listener {
 	private static  Main plugin;
+	public static String deathMessage = null;
 
 	@Override
 	public void onEnable() {
@@ -22,6 +27,11 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(this, this);
 		getServer().getPluginManager().registerEvents(new CustomItemCalling(), this);
 		getServer().getPluginManager().registerEvents(new AngelsWing(), this);
+		getServer().getPluginManager().registerEvents(new GodsEye(), this);
+	}
+	@EventHandler
+	public void login(PlayerJoinEvent event) {
+		event.getPlayer().setGameMode(GameMode.SURVIVAL);
 	}
 
 	public static Main getPlugin() {
@@ -42,8 +52,20 @@ public class Main extends JavaPlugin implements Listener {
 		if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 		Player player = event.getPlayer();
 		Block block = event.getClickedBlock();
-		if(isMatchSign(block, "運命のガチャ")) {
+		if(!isMatchSign(block, "運命のガチャ")) return;
+		if (player.getLevel() >= 3 || player.getGameMode() == GameMode.CREATIVE) {
 			new Gacha().rarityGacha(player);
+			if (player.getGameMode() != GameMode.CREATIVE) {
+				player.setLevel(player.getLevel() - 3);
+			}
+		}else {
+			player.sendMessage("レベルが足りません。");
 		}
+	}
+	@EventHandler
+	public void kill(PlayerDeathEvent event) {
+		if (deathMessage == null) return;
+		event.setDeathMessage(deathMessage);
+		deathMessage = null;
 	}
 }

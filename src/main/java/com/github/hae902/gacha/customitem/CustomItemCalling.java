@@ -16,8 +16,9 @@ public class CustomItemCalling implements Listener{
 	public String itemNBTName = "CustomItemId";
 	public static enum CUSTOMITEMID {
 		NULL("エラー", Material.STONE),//IDが埋め込まれてない時はこっちに流れる。
-		ANGELSWING(ChatColor.WHITE + "天使の翼", Material.FEATHER),
+		ANGELSWING(ChatColor.WHITE + "足腰守るくん", Material.FEATHER),
 		EXPLOSION(ChatColor.RED + "自爆スイッチ", Material.CLOCK),
+		GODSEYE(ChatColor.YELLOW + "神の契約", Material.PAPER)
 		;
 		private final String name;
 		private final Material type;
@@ -37,17 +38,21 @@ public class CustomItemCalling implements Listener{
 		Player player = e.getPlayer();
 		NBT nbt = new NBT();
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK && e.getAction() != Action.RIGHT_CLICK_AIR) return;
-		ItemStack itemMainHand = e.getItem();
-		if (itemMainHand == null) return;//RIGHT_CLICK_BLOCKだとなぜか2回実行されるので、対策
+		ItemStack item = e.getItem();
+		if (item == null) return;//RIGHT_CLICK_BLOCKだとなぜか2回実行されるので、対策
 
 		CUSTOMITEMID[] values = CUSTOMITEMID.values();
-		int id = nbt.getNBTInt(itemMainHand, itemNBTName);
+		int id = nbt.getNBTInt(item, itemNBTName);
 		switch (values[id]) {
 		case ANGELSWING:
-			new AngelsWing().use(player);
+			new AngelsWing().use(player, item);
 			break;
 		case EXPLOSION:
-			new Explosion().use(player);
+			new Explosion().use(player, item);
+			break;
+		case GODSEYE:
+			new GodsEye().use(player, item);
+			break;
 		default:
 			break;
 		}

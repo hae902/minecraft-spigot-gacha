@@ -59,13 +59,15 @@ public class Gacha {
 	}
 
 	public void rarityGacha(Player player) {
-		probability = new double[] {1,85,2,10,2};
+		probability = new double[] {85, 15};
 		id = weightingGacha(probability, player);
 		player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD +  "レアリティ ： " + String.valueOf(id + 1));
 		switch (id) {
-		case 1:
+		case 0:
 			gacha1(player);
 			break;
+		case 1:
+			gacha2(player);
 		default:
 			player.sendMessage("まだアイテムを つくってません。");
 			break;
@@ -116,7 +118,7 @@ public class Gacha {
 
 
 	void gacha1(Player player) {
-		probability = new double[] {1, 1, 1, 1, 1};
+		probability = new double[] {1, 1, 1};
 		id = weightingGacha(probability, player);
 		switch (id) {
 		case 0:
@@ -131,16 +133,29 @@ public class Gacha {
 			name = "参加賞の" + ChatColor.YELLOW + "たいまつ";
 			giveItem(player, Material.TORCH, 1, null, (String)null);
 			break;
-		case 3:
-			giveCustomItem(player, CUSTOMITEMID.ANGELSWING, 1, ChatColor.LIGHT_PURPLE + "高いところから落下すると、", ChatColor.LIGHT_PURPLE + "ダメージを軽減してくれる。", ChatColor.DARK_GRAY + "(右クリックで空高く跳ぶことも出来る！)");
-			break;
-		case 4:
-			giveCustomItem(player, CUSTOMITEMID.EXPLOSION, 1, (String)null);
-			break;
 		default:
 			player.sendMessage("このメッセージは でないはずだよ");
 			break;
 		}
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, (float) (id * 0.1 + 0.9));
 	}
+	void gacha2(Player player) {
+		probability = new double[] {1, 1, 1};
+		id = weightingGacha(probability, player);
+		switch (id) {
+		case 0:
+			giveCustomItem(player, CUSTOMITEMID.ANGELSWING, 1, ChatColor.LIGHT_PURPLE + "アイテムを消費する代わりに", ChatColor.LIGHT_PURPLE + "落下ダメージを無効化してくれる", ChatColor.DARK_GRAY + "(右クリックで空高く跳ぶことも出来る)");
+			break;
+		case 1:
+			giveCustomItem(player, CUSTOMITEMID.EXPLOSION, 1, ChatColor.RED + "自爆したいときや、周りを巻き込みたい時に...");
+			break;
+		case 2:
+			giveCustomItem(player, CUSTOMITEMID.GODSEYE, 1, "神と契約して世界のすべてを見れる", "なお、代償はあなたの命です。");
+		default:
+			player.sendMessage("このメッセージは でないはずだよ");
+			break;
+		}
+		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, (float) (id * 0.1 + 0.9));
+	}
+
 }

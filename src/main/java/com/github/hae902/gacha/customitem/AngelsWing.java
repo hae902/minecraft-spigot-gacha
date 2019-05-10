@@ -17,7 +17,7 @@ import org.bukkit.util.Vector;
 import com.github.hae902.gacha.customitem.CustomItemCalling.CUSTOMITEMID;
 
 public class AngelsWing extends CustomItem implements Listener{
-	public void use(Player player) {
+	public void use(Player player, ItemStack item) {
 		if (!player.isOnGround()) return;
 		Vector vel = player.getVelocity();
 		vel.setY(2.5);
@@ -37,9 +37,9 @@ public class AngelsWing extends CustomItem implements Listener{
 		int targetItemsCount = 0;//インベントリ内にある全ての天使の翼の数
 		final int ABATEMENT = 20;//アイテム一個あたりの軽減数（ダメージ）
 		int requiredCount = (int) Math.ceil(event.getDamage() / ABATEMENT);//天使の翼の必要数、落下する高さによって個数を変えてる
-		//デバッグ
-		/*player.sendMessage(String.valueOf(player.getHealth()));
-		player.sendMessage(String.valueOf(event.getDamage()));*/
+
+		//該当アイテムがない場合返す
+		if (items.size() == 0) return;
 
 		//落下ダメージで死ぬようだったり、5ダメージ以上じゃなかったらダメ軽減しない（おせっかい防止）
 		if (!(player.getHealth() - event.getDamage() <= 0 || event.getDamage() >= 5)) return;
@@ -48,10 +48,14 @@ public class AngelsWing extends CustomItem implements Listener{
 		for (Map.Entry<Integer, ?> item : items.entrySet())  {
 			ItemStack itemStack = (ItemStack)item.getValue();
 			int key = item.getKey();
+			player.sendMessage(String.valueOf(key));
 			if (CUSTOMITEMID.ANGELSWING.ordinal() != nbt.getNBTInt(itemStack, itemID)) continue;
 			targetItemsCount += itemStack.getAmount();
 			targetItems.put(key, itemStack);
 		}
+
+		//該当アイテムがない場合返す
+		if (targetItems.size() == 0) return;
 
 		int currentConsumption = requiredCount;//今必要な個数
 		//必要個数分、inv内のアイテムを消費させる。
@@ -70,7 +74,6 @@ public class AngelsWing extends CustomItem implements Listener{
 				//足りなかったらアイテムの個数分、必要個数を引いて次のloopへ・・・
 				currentConsumption -= amount;
 			}
-
 		}
 
 		//通知＆ダメージ
