@@ -68,6 +68,7 @@ public class Gacha {
 			break;
 		case 1:
 			gacha2(player);
+			break;
 		default:
 			player.sendMessage("まだアイテムを つくってません。");
 			break;
@@ -151,6 +152,7 @@ public class Gacha {
 			break;
 		case 2:
 			giveCustomItem(player, CUSTOMITEMID.GODSEYE, 1, "神と契約して世界のすべてを見れる", "なお、代償はあなたの命です。");
+			break;
 		default:
 			player.sendMessage("このメッセージは でないはずだよ");
 			break;
