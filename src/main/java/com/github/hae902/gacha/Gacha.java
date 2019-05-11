@@ -151,7 +151,7 @@ public class Gacha {
 			giveCustomItem(player, CUSTOMITEMID.EXPLOSION, 1, ChatColor.RED + "自爆したいときや、周りを巻き込みたい時に...");
 			break;
 		case 2:
-			giveCustomItem(player, CUSTOMITEMID.GODSEYE, 1, "神と契約して世界のすべてを見れる", "なお、代償はあなたの命です。");
+			giveCustomItem(player, CUSTOMITEMID.GODSEYE, 1, "神と契約して世界のすべてを見れる", "代償はあなたの命です。");
 			break;
 		default:
 			player.sendMessage("このメッセージは でないはずだよ");

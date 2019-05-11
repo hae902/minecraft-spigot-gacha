@@ -2,6 +2,7 @@ package com.github.hae902.gacha;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -11,8 +12,10 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.github.hae902.gacha.Utility.Notification;
 import com.github.hae902.gacha.customitem.AngelsWing;
 import com.github.hae902.gacha.customitem.CustomItemCalling;
 import com.github.hae902.gacha.customitem.GodsEye;
@@ -20,6 +23,9 @@ import com.github.hae902.gacha.customitem.GodsEye;
 public class Main extends JavaPlugin implements Listener {
 	private static  Main plugin;
 	public static String deathMessage = null;
+	/*public static ArrayList<Player> players = new ArrayList<Player>();*/
+	Notification not = new Notification();
+
 
 	@Override
 	public void onEnable() {
@@ -32,6 +38,10 @@ public class Main extends JavaPlugin implements Listener {
 	@EventHandler
 	public void login(PlayerJoinEvent event) {
 		event.getPlayer().setGameMode(GameMode.SURVIVAL);
+		not.playSoundForPlayer(Sound.BLOCK_NOTE_BLOCK_CHIME, 1, 1);
+	}
+	@EventHandler
+	public void logout(PlayerQuitEvent event) {
 	}
 
 	public static Main getPlugin() {
