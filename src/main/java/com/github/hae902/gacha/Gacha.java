@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.github.hae902.gacha.Utility.Notification;
 import com.github.hae902.gacha.customitem.CustomItemCalling;
 import com.github.hae902.gacha.customitem.CustomItemCalling.CUSTOMITEMID;
 
@@ -61,7 +62,6 @@ public class Gacha {
 	public void rarityGacha(Player player) {
 		probability = new double[] {85, 15};
 		id = weightingGacha(probability, player);
-		player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD +  "レアリティ ： " + String.valueOf(id + 1));
 		switch (id) {
 		case 0:
 			gacha1(player);
@@ -138,7 +138,7 @@ public class Gacha {
 			player.sendMessage("このメッセージは でないはずだよ");
 			break;
 		}
-		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, (float) (id * 0.1 + 0.9));
+		Notification.message(player, name + ChatColor.GOLD + "を入手しました", Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, (float) (id * 0.1 + 0.9));
 	}
 	void gacha2(Player player) {
 		probability = new double[] {1, 1, 1};
@@ -157,7 +157,7 @@ public class Gacha {
 			player.sendMessage("このメッセージは でないはずだよ");
 			break;
 		}
-		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, (float) (id * 0.1 + 0.9));
+		Notification.message(player, name + ChatColor.GOLD + "が当たりました", Sound.ENTITY_PLAYER_LEVELUP, 1, (float) (id * 0.1 + 0.9));
 	}
 
 }
