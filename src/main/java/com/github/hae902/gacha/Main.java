@@ -16,6 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.github.hae902.gacha.customitem.AngelsWing;
 import com.github.hae902.gacha.customitem.CustomItemCalling;
 import com.github.hae902.gacha.customitem.GodsEye;
+import com.github.hae902.gacha.customitem.Warp;
 
 public class Main extends JavaPlugin implements Listener {
 	private static  Main plugin;
@@ -30,6 +31,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new CustomItemCalling(), this);
 		getServer().getPluginManager().registerEvents(new AngelsWing(), this);
 		getServer().getPluginManager().registerEvents(new GodsEye(), this);
+		getServer().getPluginManager().registerEvents(new Warp(), this);
 	}
 	@EventHandler
 	public void login(PlayerJoinEvent event) {
@@ -54,10 +56,10 @@ public class Main extends JavaPlugin implements Listener {
 		Player player = event.getPlayer();
 		Block block = event.getClickedBlock();
 		if(!isMatchSign(block, "運命のガチャ")) return;
-		if (player.getLevel() >= 3 || player.getGameMode() == GameMode.CREATIVE) {
+		if (player.getLevel() >= 1 || player.getGameMode() == GameMode.CREATIVE) {
 			new Gacha().rarityGacha(player);
 			if (player.getGameMode() != GameMode.CREATIVE) {
-				player.setLevel(player.getLevel() - 3);
+				player.setLevel(player.getLevel() - 1);
 			}
 		}else {
 			player.sendMessage("レベルが足りません。");

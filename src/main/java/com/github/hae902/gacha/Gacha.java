@@ -60,7 +60,7 @@ public class Gacha {
 	}
 
 	public void rarityGacha(Player player) {
-		probability = new double[] {85, 15};
+		probability = new double[] {80, 20};
 		id = weightingGacha(probability, player);
 		switch (id) {
 		case 0:
@@ -79,7 +79,7 @@ public class Gacha {
 	void setItemNameAndLore(String name, String ...lore) {
 		//アイテム名変更
 		String displayName = null;
-		if (name != null) displayName = ChatColor.WHITE + name;
+		if (name != null) displayName = ChatColor.RESET + name;
 		itemMeta.setDisplayName(displayName);
 		//説明文変更
 		if (lore[0] != null) {
@@ -119,45 +119,34 @@ public class Gacha {
 
 
 	void gacha1(Player player) {
-		probability = new double[] {1, 1, 1};
+		probability = new double[] {1, 1};
 		id = weightingGacha(probability, player);
 		switch (id) {
 		case 0:
-			name = "参加賞の" + ChatColor.RED + "リンゴ";
-			giveItem(player, Material.APPLE, 1, name, ChatColor.GOLD + "旅のお供に・・・");
+			giveCustomItem(player, CUSTOMITEMID.ANGELSWING, 2, ChatColor.LIGHT_PURPLE + "アイテムを消費する代わりに", ChatColor.LIGHT_PURPLE + "落下ダメージを無効化してくれる", ChatColor.DARK_GRAY + "(右クリックで空高く跳ぶことも出来る)");
 			break;
 		case 1:
-			name = "参加賞の" + ChatColor.GOLD + "クッキー";
-			giveItem(player, Material.COOKIE, 1, name, "旅のお供に・・・");
-			break;
-		case 2:
-			name = "参加賞の" + ChatColor.YELLOW + "たいまつ";
-			giveItem(player, Material.TORCH, 1, null, (String)null);
+			giveCustomItem(player, CUSTOMITEMID.WARP, 1, ChatColor.LIGHT_PURPLE + "任意のプレイヤーにテレポートできる", ChatColor.LIGHT_PURPLE + "ワープできても出来なくても消費される使い捨て❤");
 			break;
 		default:
-			player.sendMessage("このメッセージは でないはずだよ");
 			break;
 		}
-		Notification.message(player, name + ChatColor.GOLD + "を入手しました", Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, (float) (id * 0.1 + 0.9));
+		Notification.systemMessage(player, name + ChatColor.YELLOW + "が当たりました", Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, (float) (id * 0.1 + 0.9));
 	}
 	void gacha2(Player player) {
-		probability = new double[] {1, 1, 1};
+		probability = new double[] {1, 1};
 		id = weightingGacha(probability, player);
 		switch (id) {
 		case 0:
-			giveCustomItem(player, CUSTOMITEMID.ANGELSWING, 1, ChatColor.LIGHT_PURPLE + "アイテムを消費する代わりに", ChatColor.LIGHT_PURPLE + "落下ダメージを無効化してくれる", ChatColor.DARK_GRAY + "(右クリックで空高く跳ぶことも出来る)");
+			giveCustomItem(player, CUSTOMITEMID.EXPLOSION, 1, ChatColor.RED + "自爆したいときや、周りを巻き込みたい時に...", ChatColor.GRAY + "ブロックは破壊しませんが、", ChatColor.GRAY + "爆発する場所には十分注意してご使用ください");
 			break;
 		case 1:
-			giveCustomItem(player, CUSTOMITEMID.EXPLOSION, 1, ChatColor.RED + "自爆したいときや、周りを巻き込みたい時に...");
-			break;
-		case 2:
 			giveCustomItem(player, CUSTOMITEMID.GODSEYE, 1, "神と契約して世界のすべてを見れる", "代償はあなたの命です。");
 			break;
 		default:
-			player.sendMessage("このメッセージは でないはずだよ");
 			break;
 		}
-		Notification.message(player, name + ChatColor.GOLD + "が当たりました", Sound.ENTITY_PLAYER_LEVELUP, 1, (float) (id * 0.1 + 0.9));
+		Notification.systemMessage(player, name + ChatColor.YELLOW + "が当たりました", Sound.ENTITY_PLAYER_LEVELUP, 1, (float) (id * 0.1 + 0.9));
 	}
 
 }

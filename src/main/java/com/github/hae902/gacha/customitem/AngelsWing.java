@@ -14,6 +14,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import com.github.hae902.gacha.Utility.Notification;
 import com.github.hae902.gacha.customitem.CustomItemCalling.CUSTOMITEMID;
 
 public class AngelsWing extends CustomItem implements Listener{
@@ -48,7 +49,6 @@ public class AngelsWing extends CustomItem implements Listener{
 		for (Map.Entry<Integer, ?> item : items.entrySet())  {
 			ItemStack itemStack = (ItemStack)item.getValue();
 			int key = item.getKey();
-			player.sendMessage(String.valueOf(key));
 			if (CUSTOMITEMID.ANGELSWING.ordinal() != nbt.getNBTInt(itemStack, itemID)) continue;
 			targetItemsCount += itemStack.getAmount();
 			targetItems.put(key, itemStack);
@@ -81,13 +81,13 @@ public class AngelsWing extends CustomItem implements Listener{
 		if (currentConsumption > 0) {
 			//inv内にある全ての天使の翼を消費しても足りなかった場合
 			player.damage(event.getDamage() - (targetItemsCount * ABATEMENT));
-			player.sendMessage(ChatColor.RED + "[注意] " + itemName + ChatColor.RED + "が足りなくなりました");
+			Notification.systemMessageError(player, ChatColor.RED + itemName + ChatColor.RED + "が足りなくなりました");
 		}if ((targetItemsCount - requiredCount) == 0) {
 			//アイテム消費後、予備がない場合
-			player.sendMessage(ChatColor.YELLOW + "[注意] " + itemName + ChatColor.YELLOW + " が無くなりました");
+			Notification.systemMessage(player, ChatColor.RESET + itemName + Notification.systemColor + " が無くなりました");
 		}else if ((targetItemsCount - requiredCount) > 0){
 			//アイテム消費後、予備がある場合
-			player.sendMessage(itemName + ChatColor.WHITE + " は、残り" + String.valueOf(targetItemsCount - requiredCount) + " 個です");
+			Notification.systemMessage(player, ChatColor.RESET + itemName + Notification.systemColor + " は、残り" + String.valueOf(targetItemsCount - requiredCount) + " 個です");
 		}
 		event.setCancelled(true);//ダメージ処理はこっちでしたので、キャンセル
 	}
