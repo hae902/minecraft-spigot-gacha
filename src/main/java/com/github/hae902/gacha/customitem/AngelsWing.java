@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,6 +24,7 @@ public class AngelsWing extends CustomItem implements Listener{
 		Vector vel = player.getVelocity();
 		vel.setY(2.5);
 		player.setVelocity(vel);
+		Notification.playSoundForPlayer(player, Sound.ENTITY_ENDER_DRAGON_FLAP, 5, 1);
 	}
 
 	//落下ダメージ軽減
