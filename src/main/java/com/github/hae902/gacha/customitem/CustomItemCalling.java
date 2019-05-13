@@ -19,7 +19,7 @@ public class CustomItemCalling implements Listener{
 		ANGELSWING(ChatColor.WHITE + "足腰守るくん", Material.FEATHER),
 		EXPLOSION(ChatColor.RED + "自爆スイッチ", Material.CLOCK),
 		GODSEYE(ChatColor.YELLOW + "神の契約", Material.PAPER),
-		WARP(ChatColor.RED + "あなたに逢いたい❤", Material.COMPASS),
+		WARP(ChatColor.RED + "運命の赤い糸", Material.STRING),
 		;
 		private final String name;
 		private final Material type;
