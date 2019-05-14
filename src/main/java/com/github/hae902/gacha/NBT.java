@@ -4,7 +4,7 @@ import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 import net.minecraft.server.v1_14_R1.NBTTagCompound;
-/**MinecraftのVer変わるとほぼ確実に動かなくなる部分なので注意*/
+/**Verが変わるとほぼ確実に動かなくなる部分なので注意*/
 public class NBT {
 	net.minecraft.server.v1_14_R1.ItemStack customitem;
 	NBTTagCompound NBT;

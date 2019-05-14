@@ -60,7 +60,7 @@ public class Gacha {
 	}
 
 	public void rarityGacha(Player player) {
-		probability = new double[] {80, 20};
+		probability = new double[] {85, 15};
 		id = weightingGacha(probability, player);
 		switch (id) {
 		case 0:
@@ -134,7 +134,7 @@ public class Gacha {
 		Notification.systemMessage(player, name + ChatColor.YELLOW + "が当たりました", Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, (float) (id * 0.1 + 0.9));
 	}
 	void gacha2(Player player) {
-		probability = new double[] {1, 1};
+		probability = new double[] {0.5, 1.5};
 		id = weightingGacha(probability, player);
 		switch (id) {
 		case 0:
